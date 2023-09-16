@@ -14,17 +14,25 @@ class VD {
     if (buildNumber < 22000) {
       IID_IVirtualDesktopManagerInternal_ := "{F31574D6-B682-4CDC-BD56-1827860ABEC6}"
       IID_IVirtualDesktop_ := "{FF72FFDD-BE7E-43FC-9C03-AD81681E88E4}"
-      this._dll_GetCurrentDesktop := this._dll_GetCurrentDesktop_Win10
-      this._dll_GetDesktops := this._dll_GetDesktops_Win10
-      this._dll_CreateDesktop := this._dll_CreateDesktop_Win10
+      this._dll_GetCurrentDesktop := this._dll_GetCurrentDesktop_Win_Default
+      this._dll_GetDesktops := this._dll_GetDesktops_Win_Default
+      this._dll_CreateDesktop := this._dll_CreateDesktop_Win_Default
       this._dll_GetName := this._dll_GetName_Win10
       this.RegisterDesktopNotifications := this.RegisterDesktopNotifications_Win10
-    } else {
+    } else if (buildNumber < 22621) {
       IID_IVirtualDesktopManagerInternal_ := "{B2F925B9-5A0F-4D2E-9F4D-2B1507593C10}"
       IID_IVirtualDesktop_ := "{536D3495-B208-4CC9-AE26-DE8111275BF8}"
       this._dll_GetCurrentDesktop := this._dll_GetCurrentDesktop_Win11
       this._dll_GetDesktops := this._dll_GetDesktops_Win11
       this._dll_CreateDesktop := this._dll_CreateDesktop_Win11
+      this._dll_GetName := this._dll_GetName_Win11
+      this.RegisterDesktopNotifications := this.RegisterDesktopNotifications_Win11
+    } else {
+      IID_IVirtualDesktopManagerInternal_ := "{A3175F2D-239C-4BD2-8AA0-EEBA8B0B138E}"
+      IID_IVirtualDesktop_ := "{3F07F4BE-B107-441A-AF0F-39D82529072C}"
+      this._dll_GetDesktops := this._dll_GetDesktops_Win_Default
+      this._dll_GetCurrentDesktop := this._dll_GetCurrentDesktop_Win_Default
+      this._dll_CreateDesktop := this._dll_CreateDesktop_Win_Default
       this._dll_GetName := this._dll_GetName_Win11
       this.RegisterDesktopNotifications := this.RegisterDesktopNotifications_Win11
     }
@@ -46,11 +54,16 @@ class VD {
       this.Ptr_CreateDesktop := this._vtable(this.IVirtualDesktopManagerInternal.Ptr, 10)
       this.Ptr_RemoveDesktop := this._vtable(this.IVirtualDesktopManagerInternal.Ptr, 12)
       this.FindDesktop := this._vtable(this.IVirtualDesktopManagerInternal.Ptr, 13)
-    } else {
+    } else if (buildNumber < 22621) {
       this.GetDesktops := this._vtable(this.IVirtualDesktopManagerInternal.Ptr, 8)
       this.Ptr_CreateDesktop := this._vtable(this.IVirtualDesktopManagerInternal.Ptr, 11)
       this.Ptr_RemoveDesktop := this._vtable(this.IVirtualDesktopManagerInternal.Ptr, 13)
       this.FindDesktop := this._vtable(this.IVirtualDesktopManagerInternal.Ptr, 14)
+    } else {
+      this.GetDesktops := this._vtable(this.IVirtualDesktopManagerInternal.Ptr, 7)
+      this.Ptr_CreateDesktop := this._vtable(this.IVirtualDesktopManagerInternal.Ptr, 11)
+      this.Ptr_RemoveDesktop := this._vtable(this.IVirtualDesktopManagerInternal.Ptr, 13)
+      this.FindDesktop := this._vtable(this.IVirtualDesktopManagerInternal.Ptr, 13)
     }
     this.IVirtualDesktopPinnedApps := ComObjQuery(this.IServiceProvider.Ptr, "{B5A399E7-1C87-46B8-88E9-FC5747B171BD}", "{4CE81583-1E4C-4632-A621-07A53543148F}")
     this.IsViewPinned := this._vtable(this.IVirtualDesktopPinnedApps.Ptr, 6)
@@ -66,7 +79,7 @@ class VD {
     DllCall("Ole32.dll\CLSIDFromString", "Str", IID_IVirtualDesktop_, "Ptr", this.Ptr_IID_IVirtualDesktop)
     this.savedLocalizedWord_Desktop := false
   }
-  static _dll_GetCurrentDesktop_Win10() {
+  static _dll_GetCurrentDesktop_Win_Default() {
     IVirtualDesktop_ofCurrentDesktop := 0
     DllCall(this.GetCurrentDesktop, "UPtr", this.IVirtualDesktopManagerInternal.Ptr, "Ptr*", &IVirtualDesktop_ofCurrentDesktop := 0)
     return IVirtualDesktop_ofCurrentDesktop
@@ -76,7 +89,7 @@ class VD {
     DllCall(this.GetCurrentDesktop, "UPtr", this.IVirtualDesktopManagerInternal.Ptr, "Ptr", 0, "Ptr*", &IVirtualDesktop_ofCurrentDesktop := 0)
     return IVirtualDesktop_ofCurrentDesktop
   }
-  static _dll_GetDesktops_Win10() {
+  static _dll_GetDesktops_Win_Default() {
     IObjectArray := 0
     DllCall(this.GetDesktops, "UPtr", this.IVirtualDesktopManagerInternal.Ptr, "Ptr*", &IObjectArray := 0)
     return IObjectArray
@@ -86,7 +99,7 @@ class VD {
     DllCall(this.GetDesktops, "UPtr", this.IVirtualDesktopManagerInternal.Ptr, "Ptr", 0, "UPtr*", &IObjectArray := 0)
     return IObjectArray
   }
-  static _dll_CreateDesktop_Win10() {
+  static _dll_CreateDesktop_Win_Default() {
     IVirtualDesktop_ofNewDesktop := 0
     DllCall(this.Ptr_CreateDesktop, "UPtr", this.IVirtualDesktopManagerInternal.Ptr, "Ptr*", &IVirtualDesktop_ofNewDesktop := 0)
     return IVirtualDesktop_ofNewDesktop
