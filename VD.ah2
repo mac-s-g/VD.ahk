@@ -28,6 +28,7 @@ class VD {
       this._dll_GetName := this._dll_GetName_Win11
       this.RegisterDesktopNotifications := this.RegisterDesktopNotifications_Win11
     } else {
+      ; Win11 after breaking changes made at build 22621.2215 
       IID_IVirtualDesktopManagerInternal_ := "{A3175F2D-239C-4BD2-8AA0-EEBA8B0B138E}"
       IID_IVirtualDesktop_ := "{3F07F4BE-B107-441A-AF0F-39D82529072C}"
       this._dll_GetDesktops := this._dll_GetDesktops_Win_Default
@@ -60,6 +61,7 @@ class VD {
       this.Ptr_RemoveDesktop := this._vtable(this.IVirtualDesktopManagerInternal.Ptr, 13)
       this.FindDesktop := this._vtable(this.IVirtualDesktopManagerInternal.Ptr, 14)
     } else {
+      ; Win11 after breaking changes made at build 22621.2215 
       this.GetDesktops := this._vtable(this.IVirtualDesktopManagerInternal.Ptr, 7)
       this.Ptr_CreateDesktop := this._vtable(this.IVirtualDesktopManagerInternal.Ptr, 11)
       this.Ptr_RemoveDesktop := this._vtable(this.IVirtualDesktopManagerInternal.Ptr, 13)
