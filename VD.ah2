@@ -63,8 +63,8 @@ class VD {
     } else {
       ; Win11 after breaking changes made at build 22621.2215 
       this.GetDesktops := this._vtable(this.IVirtualDesktopManagerInternal.Ptr, 7)
-      this.Ptr_CreateDesktop := this._vtable(this.IVirtualDesktopManagerInternal.Ptr, 11)
-      this.Ptr_RemoveDesktop := this._vtable(this.IVirtualDesktopManagerInternal.Ptr, 13)
+      this.Ptr_CreateDesktop := this._vtable(this.IVirtualDesktopManagerInternal.Ptr, 10)
+      this.Ptr_RemoveDesktop := this._vtable(this.IVirtualDesktopManagerInternal.Ptr, 12)
       this.FindDesktop := this._vtable(this.IVirtualDesktopManagerInternal.Ptr, 13)
     }
     this.IVirtualDesktopPinnedApps := ComObjQuery(this.IServiceProvider.Ptr, "{B5A399E7-1C87-46B8-88E9-FC5747B171BD}", "{4CE81583-1E4C-4632-A621-07A53543148F}")
